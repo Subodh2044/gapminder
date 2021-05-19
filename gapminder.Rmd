@@ -1,0 +1,34 @@
+---
+title: "gapminder"
+author: "Subodh"
+date: "2/6/2021"
+output: html_document
+---
+
+```{r}
+library(scales)
+library(gapminder)
+library(tidyverse)
+library(gganimate)
+data("gapminder")
+head(gapminder)
+```
+
+```{r}
+g <- gapminder %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent, size = pop ))+
+  geom_point(alpha = 0.7, stroke = 0)+
+  scale_x_log10(label=comma)+
+  transition_time(year)+
+  labs(subtitle = "year: {frame_time}")
+  
+  
+animate(g, height = 500, width = 800, fps = 60, duration = 10, end_pause = 60, res = 100)
+
+#anim_save("gapminder graph.gif")
+```
+
+
+
+
+
